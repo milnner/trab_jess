@@ -24,8 +24,8 @@ void genMG(matriz_g &G)
     G.matriz.push_back(0X200);
 
     G.matriz.push_back(0X100);
-    G.matriz.push_back(0XFF); // x
     G.matriz.push_back(0X80);
+    G.matriz.push_back(0XFF); // x
     G.matriz.push_back(0X40);
     G.matriz.push_back(0X20);
 
@@ -91,19 +91,30 @@ unsigned char decode_char(bitset<15> enc_msg)
     msg[2] = enc_msg[12];
     msg[1] = enc_msg[13];
     msg[0] = enc_msg[14];
+
     return (unsigned char) msg.to_ulong();
+}
+
+void encode_str(string &str,vector<bitset<15> > &encoded_str)
+{
+    for (size_t i = 0; i < str.length(); i++)
+        encoded_str.push_back(encode_char(str.at(i)));
+}
+
+void decode_str(vector<bitset<15> > &encoded_str, string &str)
+{
+    for (size_t i = 0; i < encoded_str.size(); i++)
+        str+=decode_char(encoded_str.at(i));
+    
 }
 
 int main(int argc, char const *argv[])
 {
-    matriz_g G;
-    unsigned char A = 'B';
-    bitset<15> enc_msg = encode_char(A);
-    decode_char(enc_msg);
-
-    cout << decode_char(enc_msg)<< endl;
+    string entry, answ;
+    vector<bitset<15> > encoded_str;
     
+    for (size_t i = 65; i < 92; i++)
+    cout << decode_char(encode_char((unsigned char) i)) << endl;
 
-    
     return 0;
 }

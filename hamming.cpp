@@ -51,7 +51,7 @@ int main(int argc, char const *argv[])
     srand(o);
 
     getline(cin, msg);
-    
+
     simulator(msg);
 
     return 0;

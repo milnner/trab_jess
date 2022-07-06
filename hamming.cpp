@@ -10,7 +10,7 @@ typedef struct matriz_h;
 
 void genMG(matriz_g &G); // Cria a matriz geradora 15 11
 
-void genMH(matriz_h &H); // Cria a matriz geradora  4 15
+void genMH(matriz_h &H); // Cria a matriz verificadora  4 15
 
 bitset<15> encode_char(unsigned char charac);   // Codifica um seguimento de 
                                                 // mensagem de tamanho 11 com o codigo de hamming.

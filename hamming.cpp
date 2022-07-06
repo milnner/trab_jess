@@ -28,10 +28,6 @@ void encode_str(string &str, vector<bitset<15> > &encoded_str); // Utilizando co
 void decode_str(vector<bitset<15> > &encoded_str, string &str); // Utilizando codigo de hamming
                                                                 // decodifica uma string.
 
-bool receive(bitset<15> encoded_char, unsigned char &decoded_char); // Implementa a correçao de 
-                                                                    // um erro em segmento de bits
-                                                                    // de tamnho 11 se possível,
-                                                                    // carro contrario retorna true.
 
 bitset<15>  dirty_msg(bitset<15> encoded_msg);  // Suja um seguimento de bits com tamanho 11 
                                                 // gerado com o codigo de hamming de maneira 

@@ -162,10 +162,10 @@ void decode_str(vector<bitset<15> > &encoded_str, string &str)
 
 bitset<15>  dirty_msg(bitset<15> encoded_msg)
 {
-    if (rand()%20 == 1)
+    if (rand()%2 == 1)
     {
         short p1 = rand()%15;
-        encoded_msg[p1] = !encoded_msg[p1];
+        encoded_msg[p1] = !(encoded_msg[p1]);
     }
     
     return encoded_msg;
@@ -182,11 +182,15 @@ void simulator(string &msg)
         bitset<15> encoded_char = dirty_msg(encoded_msg.at(i));
         if (valid_encode_char(encoded_char))
         {
-            i--; err++; continue;
+            err++; i--; continue;
         }
-        printf("%c%5cerros: %d%5c hamming:", decode_char(encoded_char), '\0', err, '\0');
-        cout << encoded_char << "   " << encoded_msg.at(i) << "  ascii_code: " <<
-                (int)decode_char(encoded_char) << endl;   
+        printf("%c%5cerros: %d%5c hamming:",
+            decode_char(encoded_char), '\0', err, '\0');
+
+        cout    << encoded_char << "   " << encoded_msg.at(i)
+                <<"  ascii_code: " << (int)decode_char(encoded_char) << endl;  
+
+        err = 0;
     }
 }
 

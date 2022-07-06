@@ -115,19 +115,28 @@ void decode_str(vector<bitset<15> > &encoded_str, string &str)
 bool receive(bitset<15> encoded_char, unsigned char &decoded_char)
 {
     short int p = valid_encode_char(encoded_char);
-
-    if (p) 
-        encoded_char[p-1] = !encoded_char[p];
+    if (p)
+        encoded_char[p-1] = !encoded_char[p-1];
 
     p = valid_encode_char(encoded_char);
     decoded_char = decode_char(encoded_char);
-
     return p;
 }
 
 bitset<15>  dirty_msg(bitset<15> encoded_msg)
 {
-
+    if (rand()%10 == 1)
+    {
+        short p1 = rand()%13+1, p2 = rand()%13+1;
+        encoded_msg[p1-1] = !encoded_msg[p1-1];
+        encoded_msg[p2-1] = !encoded_msg[p2-1];
+    }
+    else if (rand()%10 == 1)
+    {
+        short p1 = rand()%13+1;
+        encoded_msg[p1-1] = !encoded_msg[p1-1];
+    }
+    return encoded_msg;
 }
 
 void simulator(string &msg)
@@ -139,7 +148,7 @@ void simulator(string &msg)
 
     for (size_t i = 0; i < encoded_msg.size(); i++)
     {
-        bitset<15> encoded_char = (encoded_msg.at(i));
+        bitset<15> encoded_char = dirty_msg(encoded_msg.at(i));
         bitset<11> charac_bits;
        
         if(receive(encoded_char, charac))
@@ -150,20 +159,28 @@ void simulator(string &msg)
         charac_bits = bitset<11>{charac};
         printf("%c%10cerros: %d%5c",
                 charac, '\0', err, '\0');
-
         cout << charac_bits << " " << encoded_char << " "
              << charac_bits.to_ulong() << endl;
-            
         err = 0;
     }
 }
 
+void show_ascii()
+{
+    string msg;
+    for (unsigned int i = 0; i < 255; i++)
+        msg+=(char)i;
+
+    simulator(msg);
+}
+
 int main(int argc, char const *argv[])
 {
-    time_t o; 
+    time_t o; srand(o);
     string msg;
     cin >> msg;
-    simulator(msg); 
+    simulator(msg);
+    
     return 0;
 }
 

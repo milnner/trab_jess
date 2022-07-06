@@ -190,3 +190,12 @@ void simulator(string &msg)
     }
 }
 
+void show_ascii()
+{
+    string msg;
+    for (unsigned int i = 0; i < 256; i++)
+    {
+        msg += (unsigned char) i;
+    }
+    simulator(msg);
+}

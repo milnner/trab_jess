@@ -41,10 +41,9 @@ void show_ascii();  // Uma função que mostra os caracteres da tabela ascii,
 
 int main(int argc, char const *argv[])
 {
-    time_t o; 
     string msg;
 
-    srand(o);
+    srand(time(NULL));
 
     getline(cin, msg);
 
@@ -180,10 +179,10 @@ void simulator(string &msg)
         {
             err++; i--; continue;
         }
-        printf("%c%5cerros: %d%5c hamming:",
+        printf("%c%5cerros: %2d%5c hamming:",
             decode_char(encoded_char), '\0', err, '\0');
 
-        cout    << encoded_char << "   " << encoded_msg.at(i)
+        cout    << encoded_char << "   " << bitset<8>{decode_char(encoded_char)}
                 <<"  ascii_code: " << (int)decode_char(encoded_char) << endl;  
 
         err = 0;
